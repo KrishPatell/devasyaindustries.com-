@@ -1,0 +1,12 @@
+# Netlify Redirects File
+# Handles clean URLs for product detail pages
+
+# Bright Bars clean URLs
+/bars/*  /detail_bars.html?slug=:splat  200
+
+# SS Products clean URLs  
+/ss-products/*  /detail_ss-products.html?slug=:splat  200
+
+# Fallback for 404
+/*  /404.html  404
+
