@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Editor / tooling config (not part of the site)
+.claude/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+
+# Health check output, if ever redirected to a file
+health-report.txt
+package-lock.json
