@@ -13360,3 +13360,52 @@ blockquote {
     margin-top: 40px !important;
   }
 }
+
+/* devasya: contact form validation and success state */
+.contact-form-honeypot {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+[data-contact-form-wrapper] .w-form-done,
+[data-contact-form-wrapper] .w-form-fail {
+  display: none;
+}
+
+[data-contact-form-wrapper] .utility-message {
+  text-align: center;
+  font-family: Outfit, sans-serif;
+}
+
+[data-contact-form-wrapper] .success-wrapper {
+  text-align: center;
+  place-items: center;
+  justify-items: center;
+  font-family: Outfit, sans-serif;
+}
+
+[data-contact-form-wrapper] .success-wrapper h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: Outfit, sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+[data-contact-form-wrapper] .success-wrapper .body-display {
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-family: Outfit, sans-serif;
+}
+
+[data-contact-form-wrapper] .error-message {
+  text-align: center;
+  font-family: Outfit, sans-serif;
+}
