@@ -39,8 +39,8 @@ const MIME = {
   '.ico': 'image/x-icon',
 };
 
-async function resolveFile(urlPath) {
-  let p = decodeURIComponent(urlPath.split('?')[0]);
+// Resolve a single path string to a local file: direct hit, dir index.html, or .html.
+async function resolveOne(p) {
   p = normalize(p).replace(/^(\.\.[/\\])+/, '');
   const abs = join(ROOT, p);
 
@@ -57,6 +57,23 @@ async function resolveFile(urlPath) {
     try {
       if ((await stat(candidate)).isFile()) return candidate;
     } catch { /* next */ }
+  }
+  return null;
+}
+
+async function resolveFile(urlPath) {
+  const raw = urlPath.split('?')[0];
+  let decoded;
+  try { decoded = decodeURIComponent(raw); } catch { decoded = raw; }
+
+  // Try the decoded path first (normal HTTP behavior). Then fall back to the raw,
+  // still-encoded path: the asset mirror stores some files with literal percent-
+  // encoding in their names (e.g. "Frame%201171275994.png", "…%E2%80%AFPM-1.png"),
+  // because the sync script saves each asset under its encoded URL. Without this
+  // fallback those files 404 even though they exist on disk.
+  for (const p of decoded === raw ? [decoded] : [decoded, raw]) {
+    const hit = await resolveOne(p);
+    if (hit) return hit;
   }
   return null;
 }

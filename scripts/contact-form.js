@@ -16,9 +16,14 @@
 
   function unlockSubmit() {
     if (!submit || isSubmitting) return;
-    submit.disabled = false;
-    submit.classList.remove("w-form-loading");
-    submit.value = defaultSubmitText;
+    // Only mutate attributes that actually need changing. The MutationObserver
+    // below watches this button's class/disabled/value; setting `.value` on a
+    // submit input rewrites the `value` attribute, so unconditionally assigning
+    // here would re-trigger the observer and spin in an infinite loop (freezing
+    // the page). Guarding each write makes this a no-op once the button is clean.
+    if (submit.disabled) submit.disabled = false;
+    if (submit.classList.contains("w-form-loading")) submit.classList.remove("w-form-loading");
+    if (submit.value !== defaultSubmitText) submit.value = defaultSubmitText;
   }
 
   function resetMessages() {
