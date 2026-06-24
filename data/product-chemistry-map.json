@@ -1,0 +1,75 @@
+{
+  "/bars/rounds-bar": {
+    "intro": "Relevant cold drawn round-bar grades from the provided chemistry source.",
+    "grades": ["12L14"],
+    "notInSourcePdf": ["1015"]
+  },
+  "/bars/flats-bar": {
+    "intro": "Common bright-bar grades found in the provided chemistry source for flat-bar enquiries.",
+    "grades": ["EN-1A", "1040( EN8 )", "1045( EN8D )", "EN8D", "EN 24"],
+    "notInSourcePdf": ["IS2062", "SAE 1050", "35C8", "45C8"]
+  },
+  "/bars/hexagons-bar": {
+    "intro": "Common bright-bar grades found in the provided chemistry source for hexagon-bar enquiries.",
+    "grades": ["EN-1A", "1040( EN8 )", "1045( EN8D )", "EN8D", "EN 24"],
+    "notInSourcePdf": ["IS2062", "SAE 1050", "35C8", "45C8"]
+  },
+  "/bars/sqaures-bar": {
+    "intro": "Common bright-bar grades found in the provided chemistry source for square-bar enquiries.",
+    "grades": ["EN-1A", "1040( EN8 )", "1045( EN8D )", "EN8D", "EN 24"],
+    "notInSourcePdf": ["IS2062", "SAE 1050", "35C8", "45C8"]
+  },
+  "/bars/profiles-bar": {
+    "intro": "Common bright-bar grades found in the provided chemistry source for profile-bar enquiries.",
+    "grades": ["EN-1A", "1040( EN8 )", "1045( EN8D )", "EN8D", "EN 24"],
+    "notInSourcePdf": ["IS2062", "SAE 1050", "35C8", "45C8"]
+  },
+  "/ss-products/epq-wire": {
+    "grades": ["304", "316"],
+    "notInSourcePdf": ["204Cu", "202"]
+  },
+  "/ss-products/general-purpose-wire": {
+    "intro": "Representative AISI 200, 300, and 400 series grades from the provided chemistry source.",
+    "grades": ["201", "301", "302", "304", "316", "410", "430"]
+  },
+  "/ss-products/cold-heating-wire": {
+    "grades": ["304", "316", "410", "430L"],
+    "notInSourcePdf": ["302HQ", "304HC", "316Cu", "XM7", "303Cu", "204Cu", "202"]
+  },
+  "/ss-products/wire-for-nails": {
+    "grades": ["304", "304L", "304Cu", "316"],
+    "notInSourcePdf": ["302CHQ", "304HC", "305", "XM7", "316CHQ"]
+  },
+  "/ss-products/free-cutting-wire": {
+    "grades": ["303", "430F", "416"],
+    "notInSourcePdf": ["303Cu", "316F"]
+  },
+  "/ss-products/wire-for-springs": {
+    "grades": ["302", "304", "304H", "316", "316L"]
+  },
+  "/ss-products/lashing-wire": {
+    "grades": ["304", "302", "316", "430"]
+  },
+  "/ss-products/wire-for-ropes": {
+    "grades": ["304", "316"]
+  },
+  "/ss-products/fine-wires": {
+    "grades": ["302", "304", "304L", "304H", "316", "316L", "321"]
+  },
+  "/ss-products/wire-for-building-industry": {
+    "grades": ["304", "316", "430"],
+    "notInSourcePdf": ["204Cu"]
+  },
+  "/ss-products/chain-wire": {
+    "grades": ["304", "304L", "316", "316L", "430"],
+    "notInSourcePdf": ["201Cu", "202", "204Cu"]
+  },
+  "/ss-products/wire-for-conveyor-belt-weaving": {
+    "grades": ["304", "316", "310S", "321", "316Ti"],
+    "notInSourcePdf": ["314", "204Cu", "202"]
+  },
+  "/ss-products/electrode-quality-wire": {
+    "grades": ["317L", "309", "316", "347", "430"],
+    "notInSourcePdf": ["307Si", "ER308L", "ER308LSi", "ER309LSi", "ER316LSi", "ER312"]
+  }
+}
