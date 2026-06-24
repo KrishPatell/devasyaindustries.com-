@@ -15,7 +15,7 @@ const TUV_CERT = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/68bd189d0
 const ISO_CERT = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/6732308df50660b6ae22ee23_ISO%20CERTIFICATE%20E264.pdf';
 const CHEMICAL_COMPOSITION = '/documents/chemical-composition.pdf';
 const LOGO = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/66e97083d082610d30371af5_devasya.svg';
-const CODEX_CSS = '/styles/devasya-codex.css?v=20260624-gallery-marquee1';
+const CODEX_CSS = '/styles/devasya-codex.css?v=20260624-gallery-marquee2';
 const CHEMISTRY_COLUMNS = [
   ['grade', 'Grade'],
   ['type', 'Type'],

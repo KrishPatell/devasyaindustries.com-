@@ -120,7 +120,7 @@
 
     columns.forEach(function (column, index) {
       column.classList.add("codex-gallery-marquee__column");
-      column.style.setProperty("--codex-gallery-duration", (index === 1 ? 42 : 48) + "s");
+      column.style.setProperty("--codex-gallery-duration", (index === 1 ? 52.5 : 60) + "s");
 
       var originalItems = Array.prototype.slice.call(column.children);
       originalItems.forEach(function (item) {
