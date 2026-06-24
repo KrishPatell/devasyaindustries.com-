@@ -107,6 +107,30 @@
     });
   }
 
+  function setupGalleryMarquee() {
+    var gallery = document.querySelector('[data-codex-gallery-marquee="true"]');
+    if (!gallery || gallery.dataset.codexMarqueeReady === "true") return;
+
+    var columns = Array.prototype.slice.call(gallery.children).filter(function (node) {
+      return node && node.children && node.children.length;
+    });
+    if (!columns.length) return;
+
+    gallery.dataset.codexMarqueeReady = "true";
+
+    columns.forEach(function (column, index) {
+      column.classList.add("codex-gallery-marquee__column");
+      column.style.setProperty("--codex-gallery-duration", (index === 1 ? 42 : 48) + "s");
+
+      var originalItems = Array.prototype.slice.call(column.children);
+      originalItems.forEach(function (item) {
+        var clone = item.cloneNode(true);
+        clone.setAttribute("aria-hidden", "true");
+        column.appendChild(clone);
+      });
+    });
+  }
+
   document.addEventListener("click", function (event) {
     document.querySelectorAll(".w-dropdown").forEach(function (drop) {
       if (!drop.contains(event.target)) closeDropdown(drop);
@@ -117,6 +141,7 @@
     disableWebflowScrollAnimations();
     setupOneShotReveals();
     document.querySelectorAll(".w-dropdown").forEach(setupDropdown);
+    setupGalleryMarquee();
   });
 
   window.addEventListener("load", function () {
