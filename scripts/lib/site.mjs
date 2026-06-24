@@ -8,6 +8,7 @@ export const ROOT = join(__dirname, '..', '..');
 export const LOCAL_MIRROR = 'cdn.prod.website-files.com';
 
 const SKIP = new Set([LOCAL_MIRROR, 'node_modules', '.git', 'scripts', '.claude']);
+const ASSET_EXT_RE = /\.(?:avif|webp|png|jpe?g|gif|svg|ico|css|js|pdf|woff2?|ttf|otf|eot|mp4|webm|json)$/i;
 
 // Discover all pages: root index.html (route "/") and every <route>/index.html.
 export function findPages(dir = ROOT, base = '') {
@@ -43,14 +44,46 @@ export function collectAssetRels(text) {
   return rels;
 }
 
+function cleanLocalAssetPath(value) {
+  if (!value || !value.startsWith('/')) return null;
+  if (value.startsWith('//')) return null;
+  const path = value.split('&')[0].split('#')[0].split('?')[0];
+  if (!ASSET_EXT_RE.test(path)) return null;
+  return path;
+}
+
+export function collectLocalAssetPaths(text) {
+  const paths = new Set();
+
+  for (const rel of collectAssetRels(text)) {
+    paths.add(`/${LOCAL_MIRROR}/${rel}`);
+  }
+
+  const attrRe = /\b(?:href|src)=["'](\/[^"'<>\s]+)["']/g;
+  for (const m of text.matchAll(attrRe)) {
+    const path = cleanLocalAssetPath(m[1]);
+    if (path) paths.add(path);
+  }
+
+  const srcsetRe = /\bsrcset=["']([^"']+)["']/g;
+  for (const m of text.matchAll(srcsetRe)) {
+    for (const part of m[1].split(',')) {
+      const path = cleanLocalAssetPath(part.trim().split(/\s+/)[0]);
+      if (path) paths.add(path);
+    }
+  }
+
+  return paths;
+}
+
 // Check a single page's local asset references. Returns { total, missing: [rel...] }.
 export function checkPageAssets(file) {
   const html = readFileSync(file, 'utf8');
   const missing = [];
   let total = 0;
-  for (const rel of collectAssetRels(html)) {
+  for (const path of collectLocalAssetPaths(html)) {
     total++;
-    if (!existsSync(join(ROOT, LOCAL_MIRROR, ...rel.split('/')))) missing.push(rel);
+    if (!existsSync(join(ROOT, ...path.replace(/^\/+/, '').split('/')))) missing.push(path);
   }
   return { total, missing };
 }

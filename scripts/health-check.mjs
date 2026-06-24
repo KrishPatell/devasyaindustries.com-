@@ -48,8 +48,8 @@ for (const { route, file } of pages) {
   } else {
     console.log('   ' + RED('BAD ') + ` ${route}  ${DIM('(' + missing.length + ' missing asset(s))')}`);
     for (const rel of missing.slice(0, 6)) {
-      failures.push(`${route}: missing asset /cdn.prod.website-files.com/${rel}`);
-      console.log('        ' + RED('/cdn.prod.website-files.com/' + rel));
+      failures.push(`${route}: missing asset ${rel}`);
+      console.log('        ' + RED(rel));
     }
     if (missing.length > 6) console.log(DIM(`        ...and ${missing.length - 6} more`));
   }

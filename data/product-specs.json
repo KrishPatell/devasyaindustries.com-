@@ -1,0 +1,220 @@
+{
+  "/bars/rounds-bar": {
+    "title": "Round Bar Specifications",
+    "note": "Carbon steel cold drawn round-bar enquiries such as 12L14 and 1015 are called out here so customers can see the size capability instead of hitting a missing PDF.",
+    "rows": [
+      {
+        "application": "Cold drawn round bars for machining, fabrication, shafts, fasteners, and general engineering",
+        "size": "Customer-specific cold drawn round-bar range; final standard range to be confirmed from client sheet",
+        "finish": "Bright drawn, peeled, ground, polished, or as specified",
+        "tensile": "As per grade and customer requirement",
+        "grades": "12L14, 1015, EN series, alloy steel, stainless grades, and customer-specified equivalents"
+      }
+    ]
+  },
+  "/bars/flats-bar": {
+    "title": "Flat Bar Specifications",
+    "rows": [
+      {
+        "application": "Fabrication, machining, structural components, tools, fixtures, and industrial assemblies",
+        "size": "As per drawing and customer requirement",
+        "finish": "Bright drawn, polished, ground, or as specified",
+        "tensile": "As per grade and customer requirement",
+        "grades": "Carbon steel, alloy steel, stainless steel, and customer-specified equivalents"
+      }
+    ]
+  },
+  "/bars/hexagons-bar": {
+    "title": "Hexagon Bar Specifications",
+    "rows": [
+      {
+        "application": "Fasteners, nuts, precision machined components, and general engineering parts",
+        "size": "As per drawing and customer requirement",
+        "finish": "Bright drawn, polished, ground, or as specified",
+        "tensile": "As per grade and customer requirement",
+        "grades": "Carbon steel, alloy steel, stainless steel, and customer-specified equivalents"
+      }
+    ]
+  },
+  "/bars/sqaures-bar": {
+    "title": "Square Bar Specifications",
+    "rows": [
+      {
+        "application": "Machining, fabrication, fasteners, frames, fixtures, and engineering components",
+        "size": "As per drawing and customer requirement",
+        "finish": "Bright drawn, polished, ground, or as specified",
+        "tensile": "As per grade and customer requirement",
+        "grades": "Carbon steel, alloy steel, stainless steel, and customer-specified equivalents"
+      }
+    ]
+  },
+  "/bars/profiles-bar": {
+    "title": "Profile Bar Specifications",
+    "rows": [
+      {
+        "application": "Custom profiles and special shapes for machining, fabrication, and customer-specific assemblies",
+        "size": "As per profile drawing and customer requirement",
+        "finish": "Bright drawn, polished, ground, or as specified",
+        "tensile": "As per grade and customer requirement",
+        "grades": "Carbon steel, alloy steel, stainless steel, and customer-specified equivalents"
+      }
+    ]
+  },
+  "/ss-products/epq-wire": {
+    "title": "EPQ Wire Specifications",
+    "rows": [
+      {
+        "application": "Kitchen baskets, trolley pins, and electro-polishing quality components",
+        "size": "1.20 mm to 7.00 mm",
+        "finish": "Bright electro polishing quality",
+        "tensile": "700 to 1000 N/mm2",
+        "grades": "304, 316, 204Cu, 202"
+      }
+    ]
+  },
+  "/ss-products/general-purpose-wire": {
+    "title": "General Purpose Wire Specifications",
+    "rows": [
+      {
+        "application": "Wire mesh, hinges, spokes, staples, and general-purpose forming",
+        "size": "0.80 mm to 8.00 mm",
+        "finish": "Soft annealed, 1/4 hard, 1/2 hard, 3/4 hard, full hard, matte, bright, or semi-bright",
+        "tensile": "As per customer requirement",
+        "grades": "AISI 200, 300, 400 series or other international equivalent grades"
+      }
+    ]
+  },
+  "/ss-products/cold-heating-wire": {
+    "title": "Cold Heading Wire Specifications",
+    "rows": [
+      {
+        "application": "Bolts, screws, fasteners, and other cold-heading applications",
+        "size": "1.00 mm to 8.00 mm",
+        "finish": "Soap coated or soft annealed",
+        "tensile": "450 to 650 N/mm2 or 700 to 900 N/mm2",
+        "grades": "302HQ, 304, 304HC, 316, 316Cu, XM7, 410, 430L, 303Cu, 204Cu, 202"
+      }
+    ]
+  },
+  "/ss-products/wire-for-nails": {
+    "title": "Wire For Nails Specifications",
+    "rows": [
+      {
+        "application": "Nails, collated nails, and fasteners",
+        "size": "1.00 mm to 8.00 mm",
+        "finish": "Soap coated or soft annealed matte",
+        "tensile": "450 to 650 N/mm2 and 700 to 1000 N/mm2",
+        "grades": "302CHQ, 304, 304L, 304HC, 304Cu, 305, 316, XM7, 316CHQ"
+      }
+    ],
+    "note": "Renu will provide the final suitable-grade list if it changes from the current site asset."
+  },
+  "/ss-products/free-cutting-wire": {
+    "title": "Free Cutting Wire Specifications",
+    "rows": [
+      {
+        "application": "Pins, sprinklers, shafting, and other machining applications",
+        "size": "2.00 mm to 8.00 mm",
+        "finish": "Soft annealed or bright",
+        "tensile": "700 to 900 N/mm2",
+        "grades": "303, 303Cu, 430F, 316F, 416"
+      }
+    ]
+  },
+  "/ss-products/wire-for-springs": {
+    "title": "Wire For Springs Specifications",
+    "rows": [
+      {
+        "application": "Spring pins and spring applications",
+        "size": "1.00 mm to 6.00 mm",
+        "finish": "Soap coated or matte decoated",
+        "tensile": "1400 to 2200 N/mm2",
+        "grades": "302, 304, 304H, 316, 316L"
+      }
+    ]
+  },
+  "/ss-products/lashing-wire": {
+    "title": "Lashing Wire Specifications",
+    "rows": [
+      {
+        "application": "Holding electrical and mechanical cable together on overhead telephone lines and cable TV",
+        "size": "0.80 mm to 1.80 mm",
+        "finish": "Dead soft annealed matte",
+        "tensile": "600 to 750 N/mm2",
+        "grades": "304, 302, 316, 430"
+      }
+    ]
+  },
+  "/ss-products/wire-for-ropes": {
+    "title": "Wire For Ropes Specifications",
+    "rows": [
+      {
+        "application": "Rope manufacturing",
+        "size": "1.00 mm to 6.00 mm",
+        "finish": "Matte finish",
+        "tensile": "1570 to 1770 N/mm2",
+        "grades": "304, 316"
+      }
+    ]
+  },
+  "/ss-products/fine-wires": {
+    "title": "Fine Wire Specifications",
+    "rows": [
+      {
+        "application": "Redrawing and fine wire applications",
+        "size": "0.80 mm to 8.00 mm",
+        "finish": "Soft matte",
+        "tensile": "600 to 750 N/mm2",
+        "grades": "302, 304, 304L, 304H, 316, 316L, 321"
+      }
+    ]
+  },
+  "/ss-products/wire-for-building-industry": {
+    "title": "Wire For Building Industry Specifications",
+    "rows": [
+      {
+        "application": "Wall tiles and reinforcement bar",
+        "size": "1.00 mm to 6.00 mm",
+        "finish": "Bright finish",
+        "tensile": "700 to 1000 N/mm2",
+        "grades": "304, 316, 430, 204Cu"
+      }
+    ]
+  },
+  "/ss-products/chain-wire": {
+    "title": "Chain Wire Specifications",
+    "rows": [
+      {
+        "application": "Chain manufacturing",
+        "size": "2.00 mm to 8.00 mm",
+        "finish": "Bright",
+        "tensile": "700 to 1000 N/mm2",
+        "grades": "304, 304L, 316, 316L, 201Cu, 202, 204Cu, 430"
+      }
+    ]
+  },
+  "/ss-products/wire-for-conveyor-belt-weaving": {
+    "title": "Wire For Conveyor Belt Specifications",
+    "rows": [
+      {
+        "application": "Conveyor belt weaving and screens",
+        "size": "0.80 mm to 8.00 mm",
+        "finish": "Bright annealed",
+        "tensile": "600 to 750 N/mm2",
+        "grades": "304, 316, 310S, 314, 321, 316Ti, 204Cu, 202"
+      }
+    ]
+  },
+  "/ss-products/electrode-quality-wire": {
+    "title": "Electrode Quality Wire Specifications",
+    "rows": [
+      {
+        "application": "Welding electrodes",
+        "size": "1.60 mm to 5.00 mm",
+        "finish": "Bright and matte",
+        "tensile": "700 to 1000 N/mm2 and 900 to 1600 N/mm2",
+        "grades": "307Si, ER317L, ER308L (Low Si), ER308LSi, Er309, Er309LSi, Er316, Er316LSi, Er312, Er347, 430"
+      }
+    ]
+  }
+}
