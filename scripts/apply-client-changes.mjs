@@ -15,7 +15,7 @@ const TUV_CERT = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/68bd189d0
 const ISO_CERT = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/6732308df50660b6ae22ee23_ISO%20CERTIFICATE%20E264.pdf';
 const CHEMICAL_COMPOSITION = '/documents/chemical-composition.pdf';
 const LOGO = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/66e97083d082610d30371af5_devasya.svg';
-const CODEX_CSS = '/styles/devasya-codex.css?v=20260624-product-detail2';
+const CODEX_CSS = '/styles/devasya-codex.css?v=20260624-gallery-marquee2';
 const CHEMISTRY_COLUMNS = [
   ['grade', 'Grade'],
   ['type', 'Type'],
@@ -348,6 +348,9 @@ function updateHome(html) {
     if (sectionIndex !== -1 && !next.slice(sectionIndex, sectionIndex + 80).includes('id="services"')) {
       next = next.slice(0, sectionIndex) + next.slice(sectionIndex).replace('<div class="section clip">', '<div class="section clip" id="services">');
     }
+  }
+  if (!next.includes('data-codex-gallery-marquee="true"')) {
+    next = next.replace('<div class="frame-1171275358" data-w-id=', '<div class="frame-1171275358" data-codex-gallery-marquee="true" data-w-id=');
   }
   next = next.replace(
     'Our stainless steel wires are integral to various industrial applications, offering unmatched durability and versatility. Our product applications include:',
