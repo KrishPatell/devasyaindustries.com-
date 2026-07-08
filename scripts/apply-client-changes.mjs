@@ -13,9 +13,10 @@ const SKIP = new Set(['cdn.prod.website-files.com', 'node_modules', '.git', 'scr
 const BROCHURE = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/6744a3f1e5ebe25a69a536a1_Devasya%20Broucher.pdf';
 const TUV_CERT = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/68bd189d0e5485bb6d95a265_TUV-SUD%20CERTIFICATE.pdf';
 const ISO_CERT = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/6732308df50660b6ae22ee23_ISO%20CERTIFICATE%20E264.pdf';
+const ENGINEERS_CERT = '/documents/Devasya Engineers.pdf';
 const CHEMICAL_COMPOSITION = '/documents/chemical-composition.pdf';
 const LOGO = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/66e97083d082610d30371af5_devasya.svg';
-const CODEX_CSS = '/styles/devasya-codex.css?v=20260624-gallery-marquee2';
+const CODEX_CSS = '/styles/devasya-codex.css?v=20260707-engineers-cert';
 const CHEMISTRY_COLUMNS = [
   ['grade', 'Grade'],
   ['type', 'Type'],
@@ -357,14 +358,24 @@ function updateHome(html) {
     'Explore Devasya’s core capabilities: stainless steel wire drawing, bright bars, rolling mill production, and steel fabrication for industrial applications.',
   );
 
-  const marker = '<h1 class="large-heading left l">\n       Certificates';
-  const markerIndex = next.indexOf(marker);
-  if (markerIndex !== -1) {
-    const sectionStart = next.lastIndexOf('<div class="section no-verticle-padding clip full reduce"', markerIndex);
-    const sectionEnd = next.indexOf('<div class="section clip"', markerIndex);
-    if (sectionStart !== -1 && sectionEnd !== -1) {
-      const certSection = `<section class="codex-certificates-section" id="certificates"><div class="codex-certificates-inner"><h2 class="codex-certificates-title">Certificates</h2><p class="codex-certificates-copy">Download the available Devasya certification documents directly. New ISO certificates can be added here as soon as the client provides the updated files.</p><div class="codex-certificates-grid"><a class="codex-certificate-card" href="${TUV_CERT}" target="_blank" download><strong>TUV-SUD Certificate</strong><span>Current TUV-SUD certificate PDF available in the local site mirror.</span></a><a class="codex-certificate-card" href="${ISO_CERT}" target="_blank" download><strong>ISO Certificate</strong><span>Current ISO certificate PDF available in the local site mirror.</span></a></div></div></section>`;
-      next = next.slice(0, sectionStart) + certSection + next.slice(sectionEnd);
+  const certSection = `<section class="codex-certificates-section" id="certificates"><div class="codex-certificates-inner"><h2 class="codex-certificates-title">Certificates</h2><p class="codex-certificates-copy">Download the available Devasya certification documents directly. New ISO certificates can be added here as soon as the client provides the updated files.</p><div class="codex-certificates-grid"><a class="codex-certificate-card" href="${TUV_CERT}" target="_blank" download><strong>TUV-SUD Certificate</strong><span>Current TUV-SUD certificate PDF available in the local site mirror.</span></a><a class="codex-certificate-card" href="${ISO_CERT}" target="_blank" download><strong>ISO Certificate</strong><span>Current ISO certificate PDF available in the local site mirror.</span></a><a class="codex-certificate-card" href="${ENGINEERS_CERT}" target="_blank" download><strong>Devasya Engineers ISO 9001:2015</strong><span>TÜV SÜD ISO 9001:2015 Quality Management System certificate for Devasya Engineers, valid 2026–2029.</span></a></div></div></section>`;
+
+  const injectedStart = next.indexOf('<section class="codex-certificates-section"');
+  if (injectedStart !== -1) {
+    // Section was already injected on a previous run; replace it in place so the generator stays idempotent.
+    const injectedEnd = next.indexOf('</section>', injectedStart);
+    if (injectedEnd !== -1) {
+      next = next.slice(0, injectedStart) + certSection + next.slice(injectedEnd + '</section>'.length);
+    }
+  } else {
+    const marker = '<h1 class="large-heading left l">\n       Certificates';
+    const markerIndex = next.indexOf(marker);
+    if (markerIndex !== -1) {
+      const sectionStart = next.lastIndexOf('<div class="section no-verticle-padding clip full reduce"', markerIndex);
+      const sectionEnd = next.indexOf('<div class="section clip"', markerIndex);
+      if (sectionStart !== -1 && sectionEnd !== -1) {
+        next = next.slice(0, sectionStart) + certSection + next.slice(sectionEnd);
+      }
     }
   }
   return next;
