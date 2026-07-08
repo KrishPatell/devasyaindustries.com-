@@ -1018,3 +1018,10 @@ body {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* devasya: center the home hero heading */
+.section-heading .hero-content-wrapper,
+.section-heading .clip,
+.section-heading .heading {
+  text-align: center;
+}
