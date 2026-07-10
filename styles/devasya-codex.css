@@ -1025,3 +1025,417 @@ body {
 .section-heading .heading {
   text-align: center;
 }
+
+/* ----------------------------------------------------------------------------
+   Request a Quote — navbar action + modal form
+   --------------------------------------------------------------------------*/
+.codex-navbar__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+.codex-navbar__quote {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 20px;
+  border: 1.5px solid #008e9e;
+  border-radius: 8px;
+  background: #fff;
+  color: #008e9e;
+  font-family: Outfit, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.codex-navbar__quote:hover,
+.codex-navbar__quote:focus-visible {
+  background: #008e9e;
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(0, 142, 158, .22);
+}
+
+.codex-navbar__quote:focus-visible {
+  outline: 3px solid rgba(0, 142, 158, .28);
+  outline-offset: 2px;
+}
+
+.codex-footer-quote {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  padding: 9px 18px;
+  border: 1.5px solid #008e9e;
+  border-radius: 8px;
+  background: transparent;
+  color: #008e9e;
+  font-family: Outfit, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.codex-footer-quote:hover,
+.codex-footer-quote:focus-visible {
+  background: #008e9e;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(0, 142, 158, .28);
+}
+
+.codex-footer-quote:focus-visible {
+  outline: 3px solid rgba(0, 142, 158, .35);
+  outline-offset: 2px;
+}
+
+.codex-quote-open {
+  overflow: hidden;
+}
+
+.codex-quote {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 220ms ease, visibility 0s linear 220ms;
+}
+
+.codex-quote.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 220ms ease;
+}
+
+.codex-quote__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(9, 15, 20, .58);
+  backdrop-filter: blur(2px);
+}
+
+.codex-quote__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(640px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 34px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 30px 70px rgba(9, 15, 20, .32);
+  font-family: Outfit, sans-serif;
+  text-align: left;
+  transform: translateY(16px) scale(.98);
+  transition: transform 260ms cubic-bezier(.22, .61, .36, 1);
+}
+
+.codex-quote.is-open .codex-quote__dialog {
+  transform: translateY(0) scale(1);
+}
+
+.codex-quote__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 10px;
+  background: #f3f7f8;
+  color: #111827;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.codex-quote__close:hover,
+.codex-quote__close:focus-visible {
+  background: #008e9e;
+  color: #fff;
+}
+
+.codex-quote__close:focus-visible {
+  outline: 3px solid rgba(0, 142, 158, .28);
+  outline-offset: 2px;
+}
+
+.codex-quote__eyebrow {
+  margin: 0 0 8px;
+  color: #008e9e;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.codex-quote__title {
+  margin: 0 0 8px;
+  color: #111827;
+  font-family: Satoshi, sans-serif;
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.codex-quote__copy {
+  margin: 0 0 22px;
+  color: #4a4f55;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 46ch;
+}
+
+.codex-quote__form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.codex-quote__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.codex-quote__field--full {
+  grid-column: 1 / -1;
+}
+
+.codex-quote__label {
+  color: #1f2428;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+
+.codex-quote__label .codex-quote__req {
+  color: #d23f3f;
+}
+
+.codex-quote__input,
+.codex-quote__select,
+.codex-quote__textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 13px;
+  border: 1px solid #d0d7dc;
+  border-radius: 8px;
+  background: #fff;
+  color: #111827;
+  font-family: Outfit, sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.codex-quote__textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.codex-quote__select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%23647c7f' stroke-width='1.8' d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 13px center;
+  padding-right: 34px;
+}
+
+.codex-quote__input:focus,
+.codex-quote__select:focus,
+.codex-quote__textarea:focus {
+  outline: 0;
+  border-color: #008e9e;
+  box-shadow: 0 0 0 3px rgba(0, 142, 158, .16);
+}
+
+.codex-quote__honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.codex-quote__actions {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+}
+
+.codex-quote__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 20px;
+  border: 0;
+  border-radius: 8px;
+  background: #008e9e;
+  color: #fff;
+  font-family: Outfit, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  cursor: pointer;
+  transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.codex-quote__submit:hover:not(:disabled),
+.codex-quote__submit:focus-visible {
+  background: #111827;
+  box-shadow: 0 14px 28px rgba(15, 23, 42, .18);
+}
+
+.codex-quote__submit:disabled {
+  opacity: .7;
+  cursor: progress;
+}
+
+.codex-quote__state {
+  padding: 22px;
+  border-radius: 10px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.codex-quote__state--success {
+  border: 1px solid #bfe5d5;
+  background: #eefaf4;
+  color: #10633f;
+}
+
+.codex-quote__state--error {
+  margin-top: 16px;
+  border: 1px solid #f2c9c9;
+  background: #fdf0f0;
+  color: #9a2c2c;
+}
+
+.codex-quote__state h3 {
+  margin: 0 0 6px;
+  font-family: Satoshi, sans-serif;
+  font-size: 20px;
+  color: inherit;
+}
+
+.codex-quote__state h3:focus-visible {
+  outline: 3px solid rgba(0, 142, 158, .28);
+  outline-offset: 4px;
+}
+
+.codex-quote__state p {
+  margin: 0;
+}
+
+.codex-quote__state a {
+  color: inherit;
+  font-weight: 700;
+}
+
+@media (max-width: 991px) {
+  .codex-navbar__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+    margin: 14px 0 20px;
+  }
+
+  .codex-navbar__actions .codex-navbar__cta {
+    width: 100%;
+    margin: 0;
+  }
+
+  .codex-navbar__quote {
+    width: 100%;
+    min-height: 52px;
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 767px) {
+  .codex-quote {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .codex-quote__dialog {
+    width: 100%;
+    max-height: 92vh;
+    max-height: 92dvh;
+    padding: 22px 18px 24px;
+    border-radius: 18px 18px 0 0;
+    transform: translateY(100%);
+  }
+
+  .codex-quote.is-open .codex-quote__dialog {
+    transform: translateY(0);
+  }
+
+  .codex-quote__close {
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .codex-quote__eyebrow {
+    margin-bottom: 6px;
+  }
+
+  .codex-quote__title {
+    font-size: 22px;
+  }
+
+  .codex-quote__copy {
+    margin-bottom: 18px;
+    font-size: 14px;
+    max-width: none;
+  }
+
+  .codex-quote__form {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 13px;
+  }
+
+  .codex-quote__field {
+    gap: 5px;
+  }
+
+  .codex-quote__input,
+  .codex-quote__select,
+  .codex-quote__textarea {
+    min-height: 44px;
+    font-size: 16px; /* keeps iOS from zooming the viewport on focus */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .codex-quote,
+  .codex-quote__dialog {
+    transition-duration: .01ms !important;
+  }
+}
