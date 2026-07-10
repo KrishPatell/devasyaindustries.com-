@@ -16,7 +16,8 @@ const ISO_CERT = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/6732308df
 const ENGINEERS_CERT = '/documents/Devasya Engineers.pdf';
 const CHEMICAL_COMPOSITION = '/documents/chemical-composition.pdf';
 const LOGO = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/66e97083d082610d30371af5_devasya.svg';
-const CODEX_CSS = '/styles/devasya-codex.css?v=20260707-engineers-cert';
+const CODEX_CSS = '/styles/devasya-codex.css?v=20260710-quote-align';
+const WEB3FORMS_KEY = 'dc11150b-6c6f-4506-91dc-41edc9ec1cdf';
 const CHEMISTRY_COLUMNS = [
   ['grade', 'Grade'],
   ['type', 'Type'],
@@ -211,7 +212,61 @@ function navDropdown(route, label, items, groupClass, stateId) {
 
 function generatedNavbar(route) {
   const links = navLinks.map((item) => navAnchor(route, item)).join('');
-  return `<header class="codex-navbar" data-codex-navbar><div class="codex-navbar__inner"><a class="codex-navbar__brand" href="/" aria-label="Devasya Industries home"><img src="${LOGO}" alt="Devasya Industries"/></a><input class="codex-navbar__state" type="checkbox" id="codex-primary-nav-state" aria-label="Toggle navigation"/><label class="codex-navbar__menu-button" for="codex-primary-nav-state"><span></span><span></span><span></span></label><nav class="codex-navbar__menu" id="codex-primary-navigation" aria-label="Primary navigation"><div class="codex-navbar__links">${links}${navDropdown(route, 'Bright Bars', brightBarLinks, 'codex-navbar__group--bright-bars', 'codex-nav-bright-bars')}${navDropdown(route, 'SS Products', ssProductLinks, 'codex-navbar__group--ss-products', 'codex-nav-ss-products')}</div><a class="codex-navbar__cta${isCurrent(route, '/contact') ? ' is-current' : ''}" href="/contact"${isCurrent(route, '/contact') ? ' aria-current="page"' : ''}>Contact Us</a></nav></div></header>`;
+  return `<header class="codex-navbar" data-codex-navbar><div class="codex-navbar__inner"><a class="codex-navbar__brand" href="/" aria-label="Devasya Industries home"><img src="${LOGO}" alt="Devasya Industries"/></a><input class="codex-navbar__state" type="checkbox" id="codex-primary-nav-state" aria-label="Toggle navigation"/><label class="codex-navbar__menu-button" for="codex-primary-nav-state"><span></span><span></span><span></span></label><nav class="codex-navbar__menu" id="codex-primary-navigation" aria-label="Primary navigation"><div class="codex-navbar__links">${links}${navDropdown(route, 'Bright Bars', brightBarLinks, 'codex-navbar__group--bright-bars', 'codex-nav-bright-bars')}${navDropdown(route, 'SS Products', ssProductLinks, 'codex-navbar__group--ss-products', 'codex-nav-ss-products')}</div><div class="codex-navbar__actions"><button type="button" class="codex-navbar__quote" data-quote-open>Request a Quote</button><a class="codex-navbar__cta${isCurrent(route, '/contact') ? ' is-current' : ''}" href="/contact"${isCurrent(route, '/contact') ? ' aria-current="page"' : ''}>Contact Us</a></div></nav></div></header>`;
+}
+
+function quoteField(name, label, { type = 'text', required = false, full = false, placeholder = '', autocomplete = '', inputmode = '', pattern = '', title = '', maxlength = 0 } = {}) {
+  const id = `codex-quote-${name}`;
+  const req = required ? '<span class="codex-quote__req" aria-hidden="true">*</span>' : '';
+  const reqAttr = required ? ' required' : '';
+  const ph = placeholder ? ` placeholder="${escapeHtml(placeholder)}"` : '';
+  const ac = autocomplete ? ` autocomplete="${autocomplete}"` : '';
+  const im = inputmode ? ` inputmode="${escapeHtml(inputmode)}"` : '';
+  const pat = pattern ? ` pattern="${escapeHtml(pattern)}"` : '';
+  const ti = title ? ` title="${escapeHtml(title)}"` : '';
+  const ml = maxlength ? ` maxlength="${maxlength}"` : '';
+  const fieldClass = `codex-quote__field${full ? ' codex-quote__field--full' : ''}`;
+  const control = type === 'textarea'
+    ? `<textarea class="codex-quote__textarea" id="${id}" name="${name}" rows="3"${reqAttr}${ph}${ml}></textarea>`
+    : `<input class="codex-quote__input" type="${type}" id="${id}" name="${name}"${reqAttr}${ph}${ac}${im}${pat}${ti}${ml}/>`;
+  return `<div class="${fieldClass}"><label class="codex-quote__label" for="${id}">${escapeHtml(label)} ${req}</label>${control}</div>`;
+}
+
+function generatedQuoteModal() {
+  const materialOptions = ['Wire', 'Bar', 'Welding Wire']
+    .map((opt) => `<option value="${escapeHtml(opt)}">${escapeHtml(opt)}</option>`)
+    .join('');
+  const fields = [
+    quoteField('name', 'Full Name', { required: true, autocomplete: 'name' }),
+    quoteField('email', 'Email', { type: 'email', required: true, autocomplete: 'email', inputmode: 'email', pattern: '[^@\\s]+@[^@\\s]+\\.[^@\\s]{2,}', title: 'Enter a valid email address, e.g. name@gmail.com', placeholder: 'name@gmail.com' }),
+    quoteField('phone', 'Phone / WhatsApp', { type: 'tel', autocomplete: 'tel', inputmode: 'tel', pattern: '[0-9+\\-\\s()]{7,20}', title: 'Digits only, e.g. +91 99247 88225', maxlength: 20, placeholder: '+91 99247 88225' }),
+    quoteField('company', 'Company', { autocomplete: 'organization' }),
+    `<div class="codex-quote__field codex-quote__field--full"><label class="codex-quote__label" for="codex-quote-material">Type of Material <span class="codex-quote__req" aria-hidden="true">*</span></label><select class="codex-quote__select" id="codex-quote-material" name="Type of Material" required><option value="" disabled selected>Select material</option>${materialOptions}</select></div>`,
+    quoteField('Grade', 'Grade', { placeholder: 'e.g. 304, En8' }),
+    quoteField('Size', 'Size', { placeholder: 'e.g. 5.5 mm' }),
+    quoteField('Tolerance', 'Tolerance', { placeholder: 'e.g. ± 0.02 mm' }),
+    quoteField('Tensile', 'Tensile', { placeholder: 'e.g. 700–900 N/mm²' }),
+    quoteField('Surface Finish', 'Surface Finish', { placeholder: 'e.g. Bright, Matte' }),
+    quoteField('End Application', 'End Application', { type: 'textarea', full: true, placeholder: 'Where will the material be used?' }),
+  ].join('');
+
+  return `<!--codex-quote-start--><div class="codex-quote" data-quote-modal hidden><div class="codex-quote__overlay" data-quote-close></div><div class="codex-quote__dialog" data-quote-dialog role="dialog" aria-modal="true" aria-labelledby="codex-quote-title"><button type="button" class="codex-quote__close" data-quote-close aria-label="Close quote form">&times;</button><p class="codex-quote__eyebrow">Request a Quote</p><h2 class="codex-quote__title" id="codex-quote-title">Tell us what you need</h2><p class="codex-quote__copy">Share your material requirements and our team will get back to you with a tailored quote.</p><form class="codex-quote__form" data-quote-form action="https://api.web3forms.com/submit" method="POST"><input type="hidden" name="access_key" value="${WEB3FORMS_KEY}"/><input type="hidden" name="subject" value="New Quote Request — Devasya Industries"/><input type="hidden" name="from_name" value="Devasya Industries Website"/><input type="checkbox" class="codex-quote__honeypot" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true"/>${fields}<div class="codex-quote__actions"><button type="submit" class="codex-quote__submit" data-wait="Sending...">Submit Request</button></div></form><div class="codex-quote__state codex-quote__state--success" data-quote-success hidden><h3 tabindex="-1" data-quote-focus>Thank you!</h3><p>Your quote request has been sent. Our team will get back to you shortly. For anything urgent, call <a href="tel:+919924788225">+91 9924788225</a>.</p></div><div class="codex-quote__state codex-quote__state--error" data-quote-error hidden><p>Sorry, we couldn't send your request. Please try again, or email <a href="mailto:Devasyaindustriesabd@gmail.com">Devasyaindustriesabd@gmail.com</a> directly.</p></div></div></div><!--codex-quote-end-->`;
+}
+
+function ensureQuoteModal(html) {
+  const modal = generatedQuoteModal();
+  if (html.includes('<!--codex-quote-start-->')) {
+    return html.replace(/<!--codex-quote-start-->[\s\S]*?<!--codex-quote-end-->/, modal);
+  }
+  return html.replace('</body>', `${modal}</body>`);
+}
+
+const QUOTE_SCRIPT = '/scripts/quote-form.js?v=20260710-quote-form';
+function ensureQuoteScript(html) {
+  if (/\/scripts\/quote-form\.js(?:\?[^"]*)?/.test(html)) {
+    return html.replace(/\/scripts\/quote-form\.js(?:\?[^"]*)?/g, QUOTE_SCRIPT);
+  }
+  return html.replace('</body>', `<script src="${QUOTE_SCRIPT}" type="text/javascript"></script></body>`);
 }
 
 function generatedChemistryHtml(route) {
@@ -389,6 +444,8 @@ for (const file of findHtml()) {
   after = ensureNavFallback(after);
   after = ensureCodexNavbarScript(after);
   after = ensureCodexNavbar(after, route);
+  after = ensureQuoteModal(after);
+  after = ensureQuoteScript(after);
   after = normalizeBrochureLinks(after);
   if (route === '/') after = updateHome(after);
   if (specs[route]) after = cleanupProductPage(after, specs[route], route);
