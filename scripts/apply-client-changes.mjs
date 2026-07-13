@@ -335,7 +335,7 @@ function productSubtitle(route) {
 
 function generatedProductCta(route) {
   const productType = route.startsWith('/ss-products/') ? 'stainless steel wire' : 'bright bar';
-  return `<div class="codex-product-cta"><h3 class="codex-product-cta__title">Get a Appointment with Our Expert</h3><p class="codex-product-cta__copy">Connect with our specialists at Devasya Industries to explore tailored solutions for your ${productType} needs. We manufacture products in various grades and sizes to meet precise customer specifications.</p><a href="/contact" target="_blank" class="codex-product-cta__button w-inline-block"><div>Get in Touch</div></a></div>`;
+  return `<div class="codex-product-cta"><h3 class="codex-product-cta__title">Get a Appointment with Our Expert</h3><p class="codex-product-cta__copy">Connect with our specialists at Devasya Industries to explore tailored solutions for your ${productType} needs. We manufacture products in various grades and sizes to meet precise customer specifications.</p><a href="/contact" class="codex-product-cta__button w-inline-block"><div>Get in Touch</div></a></div>`;
 }
 
 function preserveProductMediaContent(content, route) {
