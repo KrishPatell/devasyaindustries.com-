@@ -648,7 +648,8 @@ body {
   line-height: 1.5;
 }
 
-#services .frame-1171275358[data-codex-gallery-marquee] {
+#services .frame-1171275358[data-codex-gallery-marquee],
+[data-codex-gallery-page] .frame-1171275358[data-codex-gallery-marquee] {
   width: min(100%, 1520px);
   height: clamp(520px, 52vw, 760px);
   margin: 40px auto 0;
@@ -656,7 +657,8 @@ body {
   overflow: hidden;
 }
 
-#services [data-codex-gallery-marquee="true"] > .codex-gallery-marquee__column {
+#services [data-codex-gallery-marquee="true"] > .codex-gallery-marquee__column,
+[data-codex-gallery-page] [data-codex-gallery-marquee="true"] > .codex-gallery-marquee__column {
   width: 100%;
   max-width: none;
   height: max-content;
@@ -665,11 +667,13 @@ body {
   animation: codex-gallery-marquee-down var(--codex-gallery-duration, 48s) linear infinite;
 }
 
-#services [data-codex-gallery-marquee="true"]:hover > .codex-gallery-marquee__column {
+#services [data-codex-gallery-marquee="true"]:hover > .codex-gallery-marquee__column,
+[data-codex-gallery-page] [data-codex-gallery-marquee="true"]:hover > .codex-gallery-marquee__column {
   animation-play-state: paused;
 }
 
-#services [data-codex-gallery-marquee="true"] img {
+#services [data-codex-gallery-marquee="true"] img,
+[data-codex-gallery-page] [data-codex-gallery-marquee="true"] img {
   display: block;
   width: 100%;
   height: clamp(240px, 23vw, 360px);
@@ -985,13 +989,15 @@ body {
     grid-template-columns: 1fr;
   }
 
-  #services .frame-1171275358[data-codex-gallery-marquee] {
+  #services .frame-1171275358[data-codex-gallery-marquee],
+  [data-codex-gallery-page] .frame-1171275358[data-codex-gallery-marquee] {
     height: 520px;
     margin-top: 28px;
     gap: 12px;
   }
 
-  #services [data-codex-gallery-marquee="true"] img {
+  #services [data-codex-gallery-marquee="true"] img,
+  [data-codex-gallery-page] [data-codex-gallery-marquee="true"] img {
     height: 220px;
   }
 
@@ -1018,6 +1024,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .codex-reveal-once,
   #services [data-codex-gallery-marquee="true"] > .codex-gallery-marquee__column,
+  [data-codex-gallery-page] [data-codex-gallery-marquee="true"] > .codex-gallery-marquee__column,
   .codex-navbar *,
   .codex-navbar *::before,
   .codex-navbar *::after {

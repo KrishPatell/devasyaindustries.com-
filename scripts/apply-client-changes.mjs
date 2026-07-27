@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Applies client-requested static-site enhancements after Webflow sync/normalization.
 
-import { readFile, writeFile } from 'node:fs/promises';
-import { readdirSync, statSync } from 'node:fs';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { ROOT } from './lib/site.mjs';
 
@@ -16,7 +16,7 @@ const ISO_CERT = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/6732308df
 const ENGINEERS_CERT = '/documents/Devasya Engineers.pdf';
 const CHEMICAL_COMPOSITION = '/documents/chemical-composition.pdf';
 const LOGO = '/cdn.prod.website-files.com/66e96fb1c0b39dd4cfc6f292/66e97083d082610d30371af5_devasya.svg';
-const CODEX_CSS = '/styles/devasya-codex.css?v=20260710-navfix';
+const CODEX_CSS = '/styles/devasya-codex.css?v=20260727-gallery';
 const WEB3FORMS_KEY = 'dc11150b-6c6f-4506-91dc-41edc9ec1cdf';
 const CHEMISTRY_COLUMNS = [
   ['grade', 'Grade'],
@@ -38,6 +38,7 @@ const chemistryByGrade = new Map(chemistryData.rows.map((row) => [normalizeGrade
 const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About Us', href: '/about' },
+  { label: 'Gallery', href: '/gallery' },
   { label: 'Rolling Mill', href: '/rolling-mill' },
 ];
 const brightBarLinks = [
@@ -406,7 +407,9 @@ function updateHome(html) {
     }
   }
   if (!next.includes('data-codex-gallery-marquee="true"')) {
-    next = next.replace('<div class="frame-1171275358" data-w-id=', '<div class="frame-1171275358" data-codex-gallery-marquee="true" data-w-id=');
+    next = next.replace('<div class="frame-1171275358" data-w-id=', '<div class="frame-1171275358" id="gallery" data-codex-gallery-marquee="true" data-w-id=');
+  } else if (!next.includes('id="gallery" data-codex-gallery-marquee="true"')) {
+    next = next.replace(/<div class="frame-1171275358"(?: id="[^"]+")? data-codex-gallery-marquee="true"/, '<div class="frame-1171275358" id="gallery" data-codex-gallery-marquee="true"');
   }
   next = next.replace(
     'Our stainless steel wires are integral to various industrial applications, offering unmatched durability and versatility. Our product applications include:',
@@ -436,6 +439,71 @@ function updateHome(html) {
   return next;
 }
 
+function extractGallerySection(homeHtml) {
+  let markerIndex = homeHtml.indexOf('<div class="subtitle">\n        GALLERY');
+  if (markerIndex === -1) markerIndex = homeHtml.indexOf('GALLERY');
+  const sectionStart = homeHtml.lastIndexOf('<div class="section clip"', markerIndex);
+  const marqueeIndex = homeHtml.indexOf('data-codex-gallery-marquee="true"', sectionStart);
+  const sectionEnd = homeHtml.indexOf('<div class="section clip"', marqueeIndex);
+  if (markerIndex === -1 || sectionStart === -1 || marqueeIndex === -1 || sectionEnd === -1) {
+    throw new Error('Could not locate the homepage gallery section.');
+  }
+  return homeHtml
+    .slice(sectionStart, sectionEnd)
+    .replace('id="services"', '')
+    .replace('id="gallery" ', '')
+    .replace('data-codex-gallery-marquee="true"', 'id="gallery" data-codex-gallery-marquee="true"')
+    .replace('Our Steel Products', 'Devasya Gallery');
+}
+
+function replaceMetaContent(html, attr, content) {
+  const re = new RegExp(`<meta content="[^"]*" ${attr}/>`, 'i');
+  if (!re.test(html)) return html;
+  return html.replace(re, `<meta content="${escapeHtml(content)}" ${attr}/>`);
+}
+
+function buildGalleryPage(homeHtml) {
+  const headEnd = homeHtml.indexOf('</head>');
+  const bodyOpen = homeHtml.match(/<body\b[^>]*>/)?.[0] || '<body class="body">';
+  const footerStart = homeHtml.indexOf('<footer class="uui-footer01_component"');
+  if (headEnd === -1 || footerStart === -1) {
+    throw new Error('Could not build gallery page from homepage shell.');
+  }
+
+  const title = 'Gallery | Devasya Industries';
+  const description = 'Explore Devasya Industries gallery of stainless steel wires, bright bars, rolling mill products, and manufacturing facilities.';
+  let head = homeHtml.slice(0, headEnd + '</head>'.length);
+  head = head.replace(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`);
+  head = replaceMetaContent(head, 'name="description"', description);
+  head = replaceMetaContent(head, 'property="og:title"', title);
+  head = replaceMetaContent(head, 'property="og:description"', description);
+  head = replaceMetaContent(head, 'name="twitter:title"', title);
+  head = replaceMetaContent(head, 'name="twitter:description"', description);
+  if (/<link href="[^"]*" rel="canonical"\/>/.test(head)) {
+    head = head.replace(/<link href="[^"]*" rel="canonical"\/>/, '<link href="/gallery" rel="canonical"/>');
+  } else {
+    head = head.replace('</head>', '<link href="/gallery" rel="canonical"/></head>');
+  }
+
+  const gallerySection = extractGallerySection(homeHtml);
+  const footerAndScripts = homeHtml.slice(footerStart);
+  return `${head}${bodyOpen}${generatedNavbar('/gallery')}<main class="page-wrapper" data-codex-gallery-page="true">${gallerySection}</main>${footerAndScripts}`;
+}
+
+async function ensureGalleryPage() {
+  const homeHtml = await readFile(join(ROOT, 'index.html'), 'utf8');
+  const galleryDir = join(ROOT, 'gallery');
+  const galleryFile = join(galleryDir, 'index.html');
+  const before = existsSync(galleryFile) ? await readFile(galleryFile, 'utf8') : '';
+  const after = buildGalleryPage(homeHtml);
+  await mkdir(galleryDir, { recursive: true });
+  if (after !== before) {
+    await writeFile(galleryFile, after);
+    changed++;
+    console.log(`applied client changes ${relative(ROOT, galleryFile)}`);
+  }
+}
+
 let changed = 0;
 for (const file of findHtml()) {
   const route = routeFor(file);
@@ -455,5 +523,7 @@ for (const file of findHtml()) {
     console.log(`applied client changes ${relative(ROOT, file)}`);
   }
 }
+
+await ensureGalleryPage();
 
 console.log(`Done. ${changed} HTML file(s) changed.`);
